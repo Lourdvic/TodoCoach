@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TodoCoach</string>
+
+    <string-array name="journee">
+        <item>Journée</item>
+        <item>Matin</item>
+        <item>Midi</item>
+        <item>Après-midi</item>
+        <item>Soir</item>
+    </string-array>
 </resources>
