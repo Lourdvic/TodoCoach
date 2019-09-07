@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -16,7 +17,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ExampleDialog extends AppCompatDialogFragment {
+public class CategoryDialog extends AppCompatDialogFragment {
     private EditText name;
     private Spinner spinner;
     private String moments[] = {"Matin", "Midi", "Après-midi", "Soir", "Journée"};
@@ -31,16 +32,22 @@ public class ExampleDialog extends AppCompatDialogFragment {
 
         builder.setView(view)
                 .setTitle("Catégorie")
-                .setNegativeButton("annuler", new DialogInterface.OnClickListener() {
+                .setNeutralButton("Ajouter", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 })
-                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                    }
+                })
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String category_name = name.getText().toString();
                     }
                 });
         adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,moments);

@@ -14,7 +14,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="7dp"
-            android:hint="Nom de la tâche" />
+            android:hint="Nom de la catégorie de tâche" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,12 +34,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignEnd="@+id/category_name"></Spinner>
         </LinearLayout>
-        <Button
-            android:id="@+id/nextCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Categorie suivante"
-            android:textSize="16dp" />
     </LinearLayout>
 
 </RelativeLayout>

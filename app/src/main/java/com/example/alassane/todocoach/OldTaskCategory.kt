@@ -2,7 +2,7 @@ package com.example.alassane.todocoach
 
 import java.util.*
 
-class TaskCategory(name : String, period: String)
+class OldTaskCategory(name : String, period: String)
 {
     var categoryName = name
     var categoryPeriod = period
