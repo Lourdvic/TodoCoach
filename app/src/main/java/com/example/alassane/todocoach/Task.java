@@ -8,4 +8,7 @@ public class Task {
         this.name = name;
         this.priority = priority;
     }
+    Task (String name) {
+
+    }
 }

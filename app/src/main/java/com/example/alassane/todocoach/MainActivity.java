@@ -3,6 +3,8 @@ package com.example.alassane.todocoach;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 View view = getLayoutInflater().inflate(R.layout.enter_task, null);
-                ArrayList<String> cat = new ArrayList<String>();
+                final ArrayList<String> cat = new ArrayList<String>();
                 cat.add("Aucun");
                 for (int i = 1; i <= coach.list.size() - 1; i++)
                 {
@@ -113,8 +115,21 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 if (!spinner.getSelectedItem().toString().equalsIgnoreCase("Aucun")) {
                                     String task_name = name.getText().toString();
+                                    coach.list.get(cat.indexOf(spinner.getSelectedItem().toString())).list.add(task_name);
                                     Toast.makeText(MainActivity.this,
-                                            task_name + " ajoutée à la catégorie " + spinner.getSelectedItem().toString(),
+                                            coach.list.get(cat.indexOf(spinner.getSelectedItem().toString())).list.get(
+                                                    coach.list.get(cat.indexOf(spinner.getSelectedItem().toString())).list.size() - 1
+                                            )
+                                                    + " ajouté à la catégorie " + spinner.getSelectedItem().toString(),
+                                            Toast.LENGTH_LONG).show();
+                                }
+                                else {
+                                    String task_name = name.getText().toString();
+                                    coach.list.get(0).list.add(task_name);
+                                    Toast.makeText(MainActivity.this,
+                                            coach.list.get(0).list.get(coach.list.get(cat.indexOf(spinner.getSelectedItem().toString())).list.size() - 1
+                                            )
+                                                    + " ajouté à aucune catégorie",
                                             Toast.LENGTH_LONG).show();
                                 }
                             }
@@ -124,5 +139,18 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+        Button next = findViewById(R.id.next_button);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showList();
+            }
+        });
+    }
+
+    public void showList() {
+        Intent intent = new Intent(this, ListTask.class);
+        //intent.putExtra("parcel_data", (Parcelable) coach);
+        startActivity(intent);
     }
 }
