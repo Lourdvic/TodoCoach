@@ -26,9 +26,4 @@ public class TaskCategory {
             this.period = 5;
     }
 
-    String getName()
-    {
-        return name;
-    }
-
 }

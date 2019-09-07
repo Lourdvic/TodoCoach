@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     private EditText name;
     private Spinner spinner;
@@ -59,10 +61,9 @@ public class MainActivity extends AppCompatActivity {
                                 if (!spinner.getSelectedItem().toString().equalsIgnoreCase("Choisir")) {
                                     TaskCategory add = new TaskCategory(name.getText().toString(), spinner.getSelectedItem().toString());
                                     coach.list.add(coach.list.size(), add);
-                                    TaskCategory category = new TaskCategory();
-                                    //category = coach.list.get(coach.list.size() - 1);
                                     Toast.makeText(MainActivity.this,
-                                            coach.list.get(coach.list.size() - 1) + " a été ajouté(e)",
+                                            coach.list.get(coach.list.size() - 1).name + " a été ajouté(e) pour le " +
+                                                    spinner.getSelectedItem().toString(),
                                             Toast.LENGTH_LONG).show();
                                 }
                                 else
@@ -81,8 +82,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 View view = getLayoutInflater().inflate(R.layout.enter_task, null);
-                adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_item,
-                        getResources().getStringArray(R.array.journee));
+                ArrayList<String> cat = new ArrayList<String>();
+                cat.add("Aucun");
+                for (int i = 1; i <= coach.list.size() - 1; i++)
+                {
+                    if (cat.indexOf(coach.list.get(i).name) == -1) {
+                        cat.add(coach.list.get(i).name);
+                    }
+                }
+                adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_item, cat);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 name = view.findViewById(R.id.task_name);
                 spinner = view.findViewById(R.id.spinner2);
@@ -103,10 +111,10 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if (!spinner.getSelectedItem().toString().equalsIgnoreCase("Choisir")) {
+                                if (!spinner.getSelectedItem().toString().equalsIgnoreCase("Aucun")) {
                                     String task_name = name.getText().toString();
                                     Toast.makeText(MainActivity.this,
-                                            spinner.getSelectedItem().toString(),
+                                            task_name + " ajoutée à la catégorie " + spinner.getSelectedItem().toString(),
                                             Toast.LENGTH_LONG).show();
                                 }
                             }
